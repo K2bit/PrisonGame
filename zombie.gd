@@ -17,14 +17,32 @@ func _ready():
 		points.append(Vector2(cos(angle), sin(angle)) * 15)
 	polygon.polygon = PackedVector2Array(points)
 	
-	# Set random target in center of screen
-	target_position = Vector2(
-		randf_range(200, 950),
-		randf_range(200, 450)
-	)
-	
 	add_to_group("zombies")
 	base_speed = speed
+
+func get_closest_player() -> Node2D:
+	var players = get_tree().get_nodes_in_group("players")
+	
+	var closest = null
+	var min_dist = INF
+
+	for player in players:
+		var distance = global_position.distance_to(player.global_position)
+		if distance < min_dist:
+			min_dist = distance
+			closest = player
+
+	return closest
+	
+func _process(delta):
+	var player = get_closest_player()
+	if player:
+		target_position = player.global_position
+	else:
+		target_position = Vector2(
+			randf_range(200, 950),
+			randf_range(200, 450)
+		)
 
 func _physics_process(delta):
 	# Apply speed reduction if wrapped
