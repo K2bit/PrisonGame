@@ -42,20 +42,46 @@ func _ready():
 func _physics_process(delta):
 	var input_vector = Vector2.ZERO
 	
-	if Input.is_key_pressed(KEY_W if input_up == "w" else KEY_I):
-		input_vector.y -= 1
-	if Input.is_key_pressed(KEY_S if input_down == "s" else KEY_K):
-		input_vector.y += 1
-	if Input.is_key_pressed(KEY_A if input_left == "a" else KEY_J):
-		input_vector.x -= 1
-	if Input.is_key_pressed(KEY_D if input_right == "d" else KEY_L):
-		input_vector.x += 1
-	
-	if Input.is_key_pressed(KEY_R if input_reel == "r" else KEY_P):
-		reel_pressed.emit(player_id)
+	# Use match statement with player_id for cleaner input handling
+	if player_id == 1:
+		if Input.is_physical_key_pressed(KEY_W):
+			input_vector.y -= 1
+		if Input.is_physical_key_pressed(KEY_S):
+			input_vector.y += 1
+		if Input.is_physical_key_pressed(KEY_A):
+			input_vector.x -= 1
+		if Input.is_physical_key_pressed(KEY_D):
+			input_vector.x += 1
+		if Input.is_physical_key_pressed(KEY_R):
+			reel_pressed.emit(player_id)
+	else:  # player_id == 2
+		if Input.is_physical_key_pressed(KEY_I):
+			input_vector.y -= 1
+		if Input.is_physical_key_pressed(KEY_K):
+			input_vector.y += 1
+		if Input.is_physical_key_pressed(KEY_J):
+			input_vector.x -= 1
+		if Input.is_physical_key_pressed(KEY_L):
+			input_vector.x += 1
+		if Input.is_physical_key_pressed(KEY_P):
+			reel_pressed.emit(player_id)
 	
 	if input_vector != Vector2.ZERO:
 		input_vector = input_vector.normalized()
 	
 	velocity = input_vector * speed
 	move_and_slide()
+	
+	# Check for zombie collisions
+	check_zombie_collision()
+
+func check_zombie_collision():
+	var zombies = get_tree().get_nodes_in_group("zombies")
+	for zombie in zombies:
+		if global_position.distance_to(zombie.global_position) < 35:  # 20 + 15 radius
+			# Handle player damage here later
+			# For now, just visual feedback
+			$Polygon2D.modulate = Color(1, 0.5, 0.5)
+			await get_tree().create_timer(0.1).timeout
+			$Polygon2D.modulate = Color.WHITE
+			break

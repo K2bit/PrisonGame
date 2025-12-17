@@ -8,7 +8,7 @@
 script = ExtResource("1_uiaus")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(15, 15)
+scale = Vector2(1e-05, 1e-05)
 shape = SubResource("CircleShape2D_roy8y")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
