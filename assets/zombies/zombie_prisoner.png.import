@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://yh51060tl4il"
-path="res://.godot/imported/zombie_prisoner.png-8e3d05b48fee799424e97cec908d2677.ctex"
+path="res://.godot/imported/zombie_prisoner.png-dad9db5d138a3cdef0bb67b3e08b4030.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/zombie_prisoner.png"
-dest_files=["res://.godot/imported/zombie_prisoner.png-8e3d05b48fee799424e97cec908d2677.ctex"]
+source_file="res://assets/zombies/zombie_prisoner.png"
+dest_files=["res://.godot/imported/zombie_prisoner.png-dad9db5d138a3cdef0bb67b3e08b4030.ctex"]
 
 [params]
 
