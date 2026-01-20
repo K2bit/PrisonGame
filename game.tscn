@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnpyxis7la3bq"]
+[gd_scene load_steps=7 format=3 uid="uid://cnpyxis7la3bq"]
 
 [ext_resource type="Script" uid="uid://dc62tt1tmkfki" path="res://chain_manager.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://wmfrlg818b1k" path="res://entities/player/player.tscn" id="2_feb5d"]
 [ext_resource type="Script" uid="uid://csvc81itaisdl" path="res://zombie_spawner.gd" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://bu4h61b55orgt" path="res://entities/zombies/zombie.tscn" id="4_fc0e3"]
 [ext_resource type="Texture2D" uid="uid://ctg2qrxf1exu8" path="res://assets/ui/health-bar/health-bar-100-player-one.png" id="5_7jktm"]
+[ext_resource type="Texture2D" uid="uid://wl6741u3lsqv" path="res://assets/player/prisoner_idle.png" id="6_ryrav"]
 
 [node name="Game" type="Node2D"]
 
@@ -33,10 +34,16 @@ limit_bottom = 648
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="HealthBar" type="TextureRect" parent="CanvasLayer"]
-offset_left = 23.0
-offset_top = 6.0
-offset_right = 337.85104
-offset_bottom = 55.0
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+offset_right = 200.0
+offset_bottom = 40.0
+
+[node name="HealthBar" type="TextureRect" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
 texture = ExtResource("5_7jktm")
+expand_mode = 1
+
+[node name="PlayerIcon" type="TextureRect" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_ryrav")
 expand_mode = 1
