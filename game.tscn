@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnpyxis7la3bq"]
+[gd_scene load_steps=8 format=3 uid="uid://cnpyxis7la3bq"]
 
 [ext_resource type="Script" uid="uid://dc62tt1tmkfki" path="res://chain_manager.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://wmfrlg818b1k" path="res://entities/player/player.tscn" id="2_feb5d"]
 [ext_resource type="Script" uid="uid://csvc81itaisdl" path="res://zombie_spawner.gd" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://bu4h61b55orgt" path="res://entities/zombies/zombie.tscn" id="4_fc0e3"]
-[ext_resource type="Texture2D" uid="uid://ctg2qrxf1exu8" path="res://assets/ui/health-bar/health-bar-100-player-one.png" id="5_7jktm"]
+[ext_resource type="Texture2D" uid="uid://ctg2qrxf1exu8" path="res://assets/ui/health-bar/health-bar-100-player.png" id="5_eow3j"]
+[ext_resource type="Script" uid="uid://d1rh8o3axwqnm" path="res://health_bar.gd" id="6_eow3j"]
 [ext_resource type="Texture2D" uid="uid://wl6741u3lsqv" path="res://assets/player/prisoner_idle.png" id="6_ryrav"]
 
 [node name="Game" type="Node2D"]
@@ -34,16 +35,21 @@ limit_bottom = 648
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
-offset_right = 200.0
-offset_bottom = 40.0
-
-[node name="HealthBar" type="TextureRect" parent="CanvasLayer/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("5_7jktm")
+[node name="HealthBar" type="TextureRect" parent="CanvasLayer"]
+offset_left = 79.0
+offset_top = 11.0
+offset_right = 393.85104
+offset_bottom = 60.0
+texture = ExtResource("5_eow3j")
 expand_mode = 1
+script = ExtResource("6_eow3j")
 
-[node name="PlayerIcon" type="TextureRect" parent="CanvasLayer/HBoxContainer"]
-layout_mode = 2
+[node name="PlayerIcon" type="TextureRect" parent="CanvasLayer"]
+offset_left = 3.0
+offset_top = -8.0
+offset_right = 79.0
+offset_bottom = 68.0
 texture = ExtResource("6_ryrav")
 expand_mode = 1
+
+[connection signal="health_changed" from="Player1" to="CanvasLayer/HealthBar" method="_on_player_1_health_changed"]

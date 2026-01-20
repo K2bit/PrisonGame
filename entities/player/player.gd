@@ -12,6 +12,10 @@ var input_reel: String
 
 signal reel_pressed(player_id: int)
 
+signal health_changed(new_health)
+var health: int = 100
+var is_invulnerable: bool = false
+
 func _ready():
 	# Set up input keys based on player ID
 	if player_id == 1:
@@ -76,12 +80,28 @@ func _physics_process(delta):
 	check_zombie_collision()
 
 func check_zombie_collision():
+	if is_invulnerable:
+		return
+
 	var zombies = get_tree().get_nodes_in_group("zombies")
 	for zombie in zombies:
 		if global_position.distance_to(zombie.global_position) < 35:  # 20 + 15 radius
-			# Handle player damage here later
-			# For now, just visual feedback
-			$Polygon2D.modulate = Color(1, 0.5, 0.5)
-			await get_tree().create_timer(0.1).timeout
-			$Polygon2D.modulate = Color.WHITE
+			take_damage()
 			break
+
+func take_damage():
+	health -= 10
+	if health < 0:
+		health = 0
+	
+	health_changed.emit(health)
+
+	$Polygon2D.modulate = Color.RED
+
+	is_invulnerable = true
+
+	await get_tree().create_timer(1.0).timeout
+
+	$Polygon2D.modulate = Color.WHITE
+	is_invulnerable = false
+	
