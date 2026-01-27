@@ -15,17 +15,25 @@
 script = ExtResource("1_e2o6t")
 player1 = NodePath("../Player1")
 player2 = NodePath("../Player2")
+num_chain_segments = 35
+chain_collision_radius = 30.0
 
 [node name="Player1" parent="." groups=["players"] instance=ExtResource("2_feb5d")]
 position = Vector2(300, 300)
+player_id = null
+speed = null
+color = null
 
 [node name="Player2" parent="." groups=["players"] instance=ExtResource("2_feb5d")]
 position = Vector2(500, 300)
 player_id = 2
+speed = null
+color = null
 
 [node name="ZombieSpawner" type="Node2D" parent="."]
 script = ExtResource("3_feb5d")
 zombie_scene = ExtResource("4_fc0e3")
+spawn_interval = 5.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0

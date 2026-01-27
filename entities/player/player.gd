@@ -100,6 +100,11 @@ func take_damage():
 
 	is_invulnerable = true
 
+	if health == 0:
+		await get_tree().create_timer(5.0).timeout
+		get_tree().reload_current_scene()
+		return
+
 	await get_tree().create_timer(1.0).timeout
 
 	$Polygon2D.modulate = Color.WHITE

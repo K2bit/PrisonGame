@@ -60,9 +60,11 @@ func update_chain_physics(delta):
 	
 	# Simulate rope physics for middle points
 	var segment_length = current_max_length / num_chain_segments
+	var zombies = get_tree().get_nodes_in_group("zombies")
 	
 	# Multiple iterations for stability
-	for iteration in range(3):
+	for iteration in range(10):
+
 		# Move points toward their ideal positions
 		for i in range(1, num_chain_segments):
 			var prev = chain_points[i - 1]
@@ -71,23 +73,38 @@ func update_chain_physics(delta):
 			
 			# Average between neighbors
 			var ideal_pos = (prev + next) / 2.0
-			chain_points[i] = curr.lerp(ideal_pos, chain_stiffness)
-		
+			chain_points[i] = curr.lerp(ideal_pos, 0.2)
+
 		# Constrain distances between segments
 		for i in range(num_chain_segments):
 			var p1 = chain_points[i]
 			var p2 = chain_points[i + 1]
 			var dist = p1.distance_to(p2)
-			var diff = dist - segment_length
 			
-			if dist > 0:
+			if dist < 0.01:
+				continue
+
+			var diff = dist - segment_length
+
+			if diff > 0:
 				var direction = (p2 - p1).normalized()
 				var correction = direction * diff * 0.5
-				
+
 				if i > 0:
 					chain_points[i] += correction
 				if i < num_chain_segments - 1:
 					chain_points[i + 1] -= correction
+
+		for i in range(1, num_chain_segments):
+			for zombie in zombies:
+				var z_pos = zombie.global_position
+				var dist = chain_points[i].distance_to(z_pos)
+
+				var hit_radius = chain_collision_radius
+
+				if dist < hit_radius:
+					var push_dir = (chain_points[i] - z_pos).normalized()
+					chain_points[i] = z_pos + (push_dir * hit_radius)
 
 func check_chain_collisions():
 	var zombies = get_tree().get_nodes_in_group("zombies")
