@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnpyxis7la3bq"]
+[gd_scene load_steps=11 format=3 uid="uid://cnpyxis7la3bq"]
 
 [ext_resource type="Script" uid="uid://dc62tt1tmkfki" path="res://chain_manager.gd" id="1_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://wmfrlg818b1k" path="res://entities/player/player.tscn" id="2_feb5d"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://d1rh8o3axwqnm" path="res://health_bar.gd" id="6_eow3j"]
 [ext_resource type="Texture2D" uid="uid://wl6741u3lsqv" path="res://assets/player/prisoner_idle.png" id="6_ryrav"]
 [ext_resource type="Texture2D" uid="uid://c23mfv1jan57r" path="res://assets/player/prisoner_idle_2.png" id="8_j5wjh"]
+[ext_resource type="Texture2D" uid="uid://cui03on71ehyr" path="res://assets/ui/menu/game_over.png" id="9_hve3p"]
+[ext_resource type="Script" uid="uid://beuec8tlpfbkm" path="res://game_over_screen.gd" id="10_mfdv2"]
 
 [node name="Game" type="Node2D"]
 
@@ -15,6 +17,8 @@
 script = ExtResource("1_e2o6t")
 player1 = NodePath("../Player1")
 player2 = NodePath("../Player2")
+num_chain_segments = 35
+chain_collision_radius = 30.0
 
 [node name="Player1" parent="." groups=["players"] instance=ExtResource("2_feb5d")]
 position = Vector2(300, 300)
@@ -26,6 +30,7 @@ player_id = 2
 [node name="ZombieSpawner" type="Node2D" parent="."]
 script = ExtResource("3_feb5d")
 zombie_scene = ExtResource("4_fc0e3")
+spawn_interval = 5.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -70,5 +75,18 @@ offset_bottom = 86.0
 texture = ExtResource("8_j5wjh")
 expand_mode = 1
 
+[node name="GameOverScreen" type="TextureRect" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_hve3p")
+script = ExtResource("10_mfdv2")
+
 [connection signal="health_changed" from="Player1" to="CanvasLayer/PlayerOneHealthBar" method="_on_health_changed"]
+[connection signal="player_died" from="Player1" to="CanvasLayer/GameOverScreen" method="_on_player_died"]
 [connection signal="health_changed" from="Player2" to="CanvasLayer/PlayerTwoHealthBar" method="_on_health_changed"]
+[connection signal="player_died" from="Player2" to="CanvasLayer/GameOverScreen" method="_on_player_died"]

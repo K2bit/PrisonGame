@@ -13,6 +13,7 @@ var input_reel: String
 signal reel_pressed(player_id: int)
 
 signal health_changed(new_health)
+signal player_died
 var health: int = 100
 var is_invulnerable: bool = false
 
@@ -99,6 +100,10 @@ func take_damage():
 	$Polygon2D.modulate = Color.RED
 
 	is_invulnerable = true
+
+	if health == 0:
+		player_died.emit()
+		return
 
 	await get_tree().create_timer(1.0).timeout
 
