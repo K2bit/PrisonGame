@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wl6741u3lsqv"
-path="res://.godot/imported/prisoner_idle.png-3a5b6d2bb89adcf3300fff14afa10164.ctex"
+uid="uid://ic135rwx38id"
+path="res://.godot/imported/health-bar-50-player.png-add7d5c8309dad59f4a3d290b7799ee3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/prisoner_idle.png"
-dest_files=["res://.godot/imported/prisoner_idle.png-3a5b6d2bb89adcf3300fff14afa10164.ctex"]
+source_file="res://assets/ui/health-bar/health-bar-50-player.png"
+dest_files=["res://.godot/imported/health-bar-50-player.png-add7d5c8309dad59f4a3d290b7799ee3.ctex"]
 
 [params]
 

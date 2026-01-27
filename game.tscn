@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnpyxis7la3bq"]
+[gd_scene load_steps=9 format=3 uid="uid://cnpyxis7la3bq"]
 
 [ext_resource type="Script" uid="uid://dc62tt1tmkfki" path="res://chain_manager.gd" id="1_e2o6t"]
-[ext_resource type="PackedScene" uid="uid://wmfrlg818b1k" path="res://player.tscn" id="2_feb5d"]
+[ext_resource type="PackedScene" uid="uid://wmfrlg818b1k" path="res://entities/player/player.tscn" id="2_feb5d"]
 [ext_resource type="Script" uid="uid://csvc81itaisdl" path="res://zombie_spawner.gd" id="3_feb5d"]
-[ext_resource type="PackedScene" uid="uid://bu4h61b55orgt" path="res://zombie.tscn" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://bu4h61b55orgt" path="res://entities/zombies/zombie.tscn" id="4_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://ctg2qrxf1exu8" path="res://assets/ui/health-bar/health-bar-100-player.png" id="5_eow3j"]
+[ext_resource type="Script" uid="uid://d1rh8o3axwqnm" path="res://health_bar.gd" id="6_eow3j"]
+[ext_resource type="Texture2D" uid="uid://wl6741u3lsqv" path="res://assets/player/prisoner_idle.png" id="6_ryrav"]
+[ext_resource type="Texture2D" uid="uid://c23mfv1jan57r" path="res://assets/player/prisoner_idle_2.png" id="8_j5wjh"]
 
 [node name="Game" type="Node2D"]
 
@@ -29,3 +33,42 @@ limit_left = 0
 limit_top = 0
 limit_right = 1152
 limit_bottom = 648
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerOneHealthBar" type="TextureRect" parent="CanvasLayer"]
+offset_left = 93.0
+offset_top = 29.0
+offset_right = 407.85104
+offset_bottom = 78.0
+texture = ExtResource("5_eow3j")
+expand_mode = 1
+script = ExtResource("6_eow3j")
+
+[node name="PlayerTwoHealthBar" type="TextureRect" parent="CanvasLayer"]
+offset_left = 743.0
+offset_top = 30.0
+offset_right = 1057.8511
+offset_bottom = 79.0
+texture = ExtResource("5_eow3j")
+expand_mode = 1
+script = ExtResource("6_eow3j")
+
+[node name="PlayerOneIcon" type="TextureRect" parent="CanvasLayer"]
+offset_left = 6.0
+offset_top = 10.0
+offset_right = 82.0
+offset_bottom = 86.0
+texture = ExtResource("6_ryrav")
+expand_mode = 1
+
+[node name="PlayerTwoIcon" type="TextureRect" parent="CanvasLayer"]
+offset_left = 1067.0
+offset_top = 10.0
+offset_right = 1143.0
+offset_bottom = 86.0
+texture = ExtResource("8_j5wjh")
+expand_mode = 1
+
+[connection signal="health_changed" from="Player1" to="CanvasLayer/PlayerOneHealthBar" method="_on_health_changed"]
+[connection signal="health_changed" from="Player2" to="CanvasLayer/PlayerTwoHealthBar" method="_on_health_changed"]
