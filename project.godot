@@ -11,6 +11,6 @@ config_version=5
 [application]
 
 config/name="Prison Outbreak"
-run/main_scene="uid://cnpyxis7la3bq"
+run/main_scene="uid://ewpp8vyxa165"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
